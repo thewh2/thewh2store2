@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
 import CategoryCard from "../components/CategoryCard";
@@ -7,10 +7,45 @@ import { categories, getFeaturedProducts, getTrendingProducts } from "../data/pr
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Award, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Feedback {
+  id: string;
+  customer_name: string;
+  description: string;
+  rating: number;
+  created_at: string;
+}
 
 const Home: React.FC = () => {
   const featuredProducts = getFeaturedProducts();
   const trendingProducts = getTrendingProducts();
+  const [customerFeedback, setCustomerFeedback] = useState<Feedback[]>([]);
+
+  useEffect(() => {
+    fetchLatestFeedback();
+  }, []);
+
+  const fetchLatestFeedback = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('feedback')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      if (error) {
+        console.error('Error fetching feedback:', error);
+        return;
+      }
+      
+      if (data) {
+        setCustomerFeedback(data);
+      }
+    } catch (error) {
+      console.error('Error fetching feedback:', error);
+    }
+  };
 
   return (
     <div>
@@ -180,69 +215,42 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm">
-              <div className="flex items-center mb-4">
-                <div className="bg-brand-100 dark:bg-brand-900/50 w-12 h-12 rounded-full flex items-center justify-center mr-4">
-                  <span className="font-bold text-brand-600 dark:text-brand-400">SR</span>
+            {customerFeedback.length > 0 ? (
+              customerFeedback.map((feedback) => (
+                <div key={feedback.id} className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-brand-100 dark:bg-brand-900/50 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                      <span className="font-bold text-brand-600 dark:text-brand-400">
+                        {feedback.customer_name.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{feedback.customer_name}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Verified Customer</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 dark:text-gray-300 italic mb-4">
+                    "{feedback.description}"
+                  </p>
+                  <div className="flex mt-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < (feedback.rating || 0)
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-gray-300 dark:text-gray-600"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold">Sabin Rai</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">YouTube Content Creator</p>
-                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-gray-500 dark:text-gray-400">No customer reviews yet. Be the first to leave feedback!</p>
               </div>
-              <p className="text-gray-700 dark:text-gray-300 italic">
-                "My channel grew from 500 to over 5,000 subscribers in just two months. The engagement on my videos has increased dramatically. Highly recommended!"
-              </p>
-              <div className="flex mt-4">
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-              </div>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm">
-              <div className="flex items-center mb-4">
-                <div className="bg-brand-100 dark:bg-brand-900/50 w-12 h-12 rounded-full flex items-center justify-center mr-4">
-                  <span className="font-bold text-brand-600 dark:text-brand-400">NK</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Nisha Karki</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Instagram Influencer</p>
-                </div>
-              </div>
-              <p className="text-gray-700 dark:text-gray-300 italic">
-                "I've tried many services, but WH2 Store's Instagram growth package delivered real results. My engagement rate increased by 15% and I got many brand deals after using their services."
-              </p>
-              <div className="flex mt-4">
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-              </div>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm">
-              <div className="flex items-center mb-4">
-                <div className="bg-brand-100 dark:bg-brand-900/50 w-12 h-12 rounded-full flex items-center justify-center mr-4">
-                  <span className="font-bold text-brand-600 dark:text-brand-400">RP</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Ram Pradhan</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Business Owner</p>
-                </div>
-              </div>
-              <p className="text-gray-700 dark:text-gray-300 italic">
-                "The SEO services from WH2 Store helped my business rank on the first page of Google. Our organic traffic has increased by 200% in just three months!"
-              </p>
-              <div className="flex mt-4">
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>

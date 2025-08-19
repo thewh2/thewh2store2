@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
               </div>
               <div className="absolute -top-8 -right-8 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 transform rotate-6">
                 <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+                  src="https://plus.unsplash.com/premium_photo-1728613749980-cd3e758183df"
                   alt="Digital Learning"
                   className="rounded-lg w-40 h-28 object-cover"
                 />

@@ -8,9 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { toast } from "sonner";
-import { processPayment, validateCouponCode, sendPaymentNotification, PaymentDetails } from '@/services/paymentService';
+import { processPayment, sendPaymentNotification, PaymentDetails } from '@/services/paymentService';
 import { motion } from 'framer-motion';
-import { ShoppingBag, CreditCard, Truck, Phone, MapPin, User, Tag, X } from 'lucide-react';
+import { ShoppingBag, CreditCard, Truck, Phone, MapPin, User } from 'lucide-react';
 import esewaQR from '@/assets/esewa-qr.jpg';
 import { savePaymentMessageToFirebase } from '@/services/firebaseService';
 
@@ -19,20 +19,18 @@ interface CheckoutFormData {
   phone: string;
   address: string;
   paymentMethod: 'esewa' | 'cod';
-  couponCode: string;
 }
 
 const SimpleCheckout: React.FC = () => {
   const navigate = useNavigate();
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalItems, totalPrice, clearCart, couponDiscount, activeCoupon } = useCart();
   const [formData, setFormData] = useState<CheckoutFormData>({
     customerName: '',
     phone: '',
     address: '',
     paymentMethod: 'esewa',
-    couponCode: ''
   });
-  const [couponApplied, setCouponApplied] = useState<{valid: boolean; discount: number; description: string} | null>(null);
+  
   const [processing, setProcessing] = useState(false);
   const [showPaymentInstructions, setShowPaymentInstructions] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState<string>('');
@@ -57,35 +55,13 @@ const SimpleCheckout: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleApplyCoupon = () => {
-    if (!formData.couponCode.trim()) {
-      toast.error("Please enter a coupon code");
-      return;
-    }
-
-    const validation = validateCouponCode(formData.couponCode);
-    if (validation.valid) {
-      setCouponApplied(validation);
-      toast.success(`Coupon applied! ${validation.description}`);
-    } else {
-      toast.error("Invalid coupon code");
-      setCouponApplied(null);
-    }
-  };
-
-  const handleRemoveCoupon = () => {
-    setCouponApplied(null);
-    setFormData(prev => ({ ...prev, couponCode: '' }));
-    toast.info("Coupon removed");
-  };
-
-  const calculateDiscount = () => {
-    if (!couponApplied) return 0;
-    return Math.round((totalPrice * couponApplied.discount) / 100);
-  };
 
   const getFinalTotal = () => {
-    return totalPrice - calculateDiscount();
+    if (couponDiscount && couponDiscount > 0) {
+      const discountAmount = Math.round((totalPrice * couponDiscount) / 100);
+      return totalPrice - discountAmount;
+    }
+    return totalPrice;
   };
 
   const handlePlaceOrder = async () => {
@@ -111,8 +87,8 @@ const SimpleCheckout: React.FC = () => {
           image: item.product.image
         })),
         paymentMethod: formData.paymentMethod,
-        couponCode: couponApplied ? formData.couponCode : undefined,
-        discountAmount: calculateDiscount()
+        couponCode: activeCoupon || undefined,
+        discountAmount: couponDiscount ? (totalPrice * (couponDiscount || 0)) / 100 : 0
       };
 
       const result = await processPayment(paymentDetails);
@@ -344,39 +320,6 @@ const SimpleCheckout: React.FC = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Tag className="w-5 h-5" />
-                  Apply Coupon
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex gap-2">
-                  <Input
-                    name="couponCode"
-                    value={formData.couponCode}
-                    onChange={handleInputChange}
-                    placeholder="Enter coupon code"
-                    disabled={!!couponApplied}
-                  />
-                  {couponApplied ? (
-                    <Button variant="outline" onClick={handleRemoveCoupon}>
-                      <X className="w-4 h-4" />
-                    </Button>
-                  ) : (
-                    <Button onClick={handleApplyCoupon}>Apply</Button>
-                  )}
-                </div>
-                {couponApplied && (
-                  <div className="bg-green-50 p-3 rounded-lg">
-                    <p className="text-green-700 font-medium">
-                      ✓ {couponApplied.description} applied!
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
           </div>
 
           {/* Order Summary */}
@@ -415,10 +358,10 @@ const SimpleCheckout: React.FC = () => {
                     <span>Subtotal:</span>
                     <span>Rs. {totalPrice}</span>
                   </div>
-                  {couponApplied && (
+                  {couponDiscount && couponDiscount > 0 && (
                     <div className="flex justify-between text-green-600">
-                      <span>Discount ({couponApplied.description}):</span>
-                      <span>-Rs. {calculateDiscount()}</span>
+                      <span>Discount ({couponDiscount}% off):</span>
+                      <span>-Rs. {Math.round((totalPrice * (couponDiscount || 0)) / 100)}</span>
                     </div>
                   )}
                   <Separator />

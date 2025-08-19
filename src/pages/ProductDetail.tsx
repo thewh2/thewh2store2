@@ -324,72 +324,13 @@ const ProductDetail: React.FC = () => {
                     Customer Reviews
                   </h3>
                   <div className="space-y-6">
-                    <div className="flex items-start">
-                      <div className="bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 h-10 w-10 rounded-full flex items-center justify-center font-semibold mr-4">
-                        RK
-                      </div>
-                      <div>
-                        <div className="flex items-center mb-1">
-                          <h4 className="font-medium text-gray-900 dark:text-white mr-2">
-                            Ram Kumar
-                          </h4>
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`w-4 h-4 ${
-                                  i < 5
-                                    ? "text-yellow-400 fill-yellow-400"
-                                    : "text-gray-300 dark:text-gray-600"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
-                          Excellent service! The delivery was even faster than promised. I got real engagement and my account grew significantly.
-                        </p>
-                        <p className="text-gray-500 dark:text-gray-500 text-xs">
-                          Posted 3 days ago
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <div className="bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 h-10 w-10 rounded-full flex items-center justify-center font-semibold mr-4">
-                        SP
-                      </div>
-                      <div>
-                        <div className="flex items-center mb-1">
-                          <h4 className="font-medium text-gray-900 dark:text-white mr-2">
-                            Sita Poudel
-                          </h4>
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`w-4 h-4 ${
-                                  i < 4
-                                    ? "text-yellow-400 fill-yellow-400"
-                                    : "text-gray-300 dark:text-gray-600"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">
-                          Very happy with my purchase. The engagement looks very natural and I've already seen an increase in organic reach.
-                        </p>
-                        <p className="text-gray-500 dark:text-gray-500 text-xs">
-                          Posted 1 week ago
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                      <Button variant="outline">
-                        Read All Reviews
-                      </Button>
+                    <div className="text-center py-8">
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Customer reviews are available after purchase. 
+                        <Link to="/customer-feedback" className="text-brand-600 hover:text-brand-700 ml-1">
+                          View all customer feedback
+                        </Link>
+                      </p>
                     </div>
                   </div>
                 </div>

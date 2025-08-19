@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, Bot } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -14,14 +14,33 @@ const Footer: React.FC = () => {
               Your one-stop digital marketplace for premium software, ebooks, courses, and digital products in Nepal.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors">
+              <a 
+                href="https://www.facebook.com/thewh2" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors"
+              >
                 <Facebook size={20} />
               </a>
               <a href="#" className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors">
+              <a 
+                href="https://www.linkedin.com/in/chandan-thakur-30514727b/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors"
+              >
                 <Linkedin size={20} />
+              </a>
+              <a 
+                href="https://talkgpt2.netlify.app/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 transition-colors"
+                title="AI ChatBot"
+              >
+                <Bot size={20} />
               </a>
             </div>
           </div>

@@ -113,47 +113,6 @@ const Cart: React.FC = () => {
               </div>
             </motion.div>
             
-            {/* Delivery Options */}
-            <motion.div 
-              className="glass rounded-xl shadow-md overflow-hidden mt-6"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Delivery Options
-                </h2>
-                <div className="space-y-3">
-                  <div className="flex items-center p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-white/50 dark:bg-gray-800/50">
-                    <input 
-                      type="radio" 
-                      id="delivery-standard" 
-                      name="delivery" 
-                      className="h-4 w-4 text-brand-600"
-                      defaultChecked
-                    />
-                    <label htmlFor="delivery-standard" className="ml-3 flex justify-between items-center w-full">
-                      <span>Standard Delivery (24-48 hours)</span>
-                      <span className="font-medium">Free</span>
-                    </label>
-                  </div>
-                  
-                  <div className="flex items-center p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-white/50 dark:bg-gray-800/50">
-                    <input 
-                      type="radio" 
-                      id="delivery-express" 
-                      name="delivery" 
-                      className="h-4 w-4 text-brand-600" 
-                    />
-                    <label htmlFor="delivery-express" className="ml-3 flex justify-between items-center w-full">
-                      <span>Express Delivery (12 hours)</span>
-                      <span className="font-medium">+$5.00</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
 
           <div className="lg:col-span-1">
@@ -195,7 +154,7 @@ const Cart: React.FC = () => {
                   <div className="flex space-x-2">
                     <input
                       type="text"
-                      placeholder="Coupon Code"
+                      placeholder="Enter Coupon Code"
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value)}
                       disabled={!!activeCoupon || isApplyingCoupon}
@@ -205,6 +164,7 @@ const Cart: React.FC = () => {
                       variant="outline" 
                       onClick={handleApplyCoupon}
                       disabled={!!activeCoupon || isApplyingCoupon}
+                      size="sm"
                     >
                       {isApplyingCoupon ? (
                         <span className="flex items-center">
@@ -216,24 +176,28 @@ const Cart: React.FC = () => {
                         </span>
                       ) : "Apply"}
                     </Button>
-                  </div>
-                  {activeCoupon && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="mt-2 text-xs text-green-600 dark:text-green-400 flex justify-between"
-                    >
-                      <span>Coupon {activeCoupon} applied</span>
-                      <button
+                    {activeCoupon && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={() => {
                           applyCoupon?.(null);
                           setCouponCode("");
                           toast.info("Coupon removed");
                         }}
-                        className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                        className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                       >
                         Remove
-                      </button>
+                      </Button>
+                    )}
+                  </div>
+                  {activeCoupon && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-2 text-sm text-green-600 dark:text-green-400"
+                    >
+                      ✓ Coupon {activeCoupon} applied successfully
                     </motion.div>
                   )}
                 </div>
@@ -258,18 +222,6 @@ const Cart: React.FC = () => {
                   </Link>
                 </div>
                 
-                {/* Payment Security Information */}
-                <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Secure Checkout</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                    We protect your payment information using encryption to provide bank-level security.
-                  </p>
-                  <div className="flex justify-between">
-                    <img src="https://cdn.esewa.com.np/ui/images/esewa_logo.png" alt="eSewa" className="h-5" />
-                    <img src="https://khalti.com/static/official-logo-color.0f24ec7079e4.svg" alt="Khalti" className="h-5" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="Stripe" className="h-5" />
-                  </div>
-                </div>
               </div>
             </motion.div>
           </div>

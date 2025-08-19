@@ -29,22 +29,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return savedItems ? JSON.parse(savedItems) : [];
   });
   
-  const [activeCoupon, setActiveCoupon] = useState<string | null>(() => {
-    const savedCoupon = localStorage.getItem("activeCoupon");
-    return savedCoupon || null;
-  });
+  const [activeCoupon, setActiveCoupon] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  useEffect(() => {
-    if (activeCoupon) {
-      localStorage.setItem("activeCoupon", activeCoupon);
-    } else {
-      localStorage.removeItem("activeCoupon");
-    }
-  }, [activeCoupon]);
 
   const addToCart = (product: Product, quantity: number = 1) => {
     setItems((prevItems) => {
@@ -96,7 +86,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     toast.info("Cart cleared");
   };
 
-  const applyCoupon = (code: string) => {
+  const applyCoupon = (code: string | null) => {
+    if (code === null) {
+      setActiveCoupon(null);
+      return true;
+    }
+    
     const coupon = availableCoupons.find(
       (c) => c.code.toLowerCase() === code.toLowerCase()
     );

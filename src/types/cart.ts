@@ -14,7 +14,7 @@ export interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
-  applyCoupon?: (code: string) => void;
+  applyCoupon?: (code: string | null) => boolean;
   couponDiscount?: number;
   activeCoupon?: string | null;
 }

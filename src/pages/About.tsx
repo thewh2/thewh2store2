@@ -15,7 +15,7 @@ const About: React.FC = () => {
           <div className="md:flex">
             <div className="md:w-1/2">
               <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                src="https://images.unsplash.com/photo-1683721003111-070bcc053d8b" 
                 alt="About The WH2 Store" 
                 className="w-full h-full object-cover"
               />
@@ -25,10 +25,10 @@ const About: React.FC = () => {
                 Your Digital Marketplace in Nepal
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Founded in 2023, The WH2 Store is Nepal's premier digital marketplace, connecting talented creators with customers seeking high-quality digital products.
+                The WH2 Store is a digital marketplace offering social media growth services, SEO solutions, and online marketing tools designed to help creators, businesses, and brands expand their digital presence. We believe in making online growth simple, effective, and accessible to everyone.
               </p>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Our mission is to promote digital entrepreneurship in Nepal by providing a secure platform where creators can showcase and sell their digital innovations to a global audience.
+                Founded by The WH2, our mission is to deliver fast, secure, and reliable digital services with a strong focus on quality and customer satisfaction. Whether it’s boosting followers, increasing engagement, or driving traffic, we provide the tools you need to succeed online.
               </p>
               <div>
                 <Link to="/shop">
@@ -97,7 +97,7 @@ const About: React.FC = () => {
               />
               <div className="p-6 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                  Rahul Sharma
+                  Chandan Thakur
                 </h3>
                 <p className="text-sm text-brand-600 dark:text-brand-400 mb-3">Founder & CEO</p>
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -154,7 +154,7 @@ const About: React.FC = () => {
               </Button>
             </Link>
             <Link to="/contact">
-              <Button variant="outline" className="border-white text-white hover:bg-brand-700">
+              <Button variant="outline" className="bg-white text-brand-600 hover:bg-purple-500">
                 Contact Us
               </Button>
             </Link>

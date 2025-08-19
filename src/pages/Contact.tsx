@@ -175,8 +175,10 @@ const Contact: React.FC = () => {
               <iframe
                 title="Map"
                 className="w-full h-full min-h-[400px]"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1115633333615!2d85.3071022!3d27.714542799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fcb77fd4f7%3A0x443815c26d1727e7!2sThamel%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1618642897208!5m2!1sen!2snp"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d199.82697978925128!2d85.34561906983006!3d27.684663682614207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2snp!4v1755593749230!5m2!1sen!2snp"
                 loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
           </div>
@@ -186,37 +188,50 @@ const Contact: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-6 text-left">
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                How do I download my purchased products?
+                1. How long does delivery take?
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                After completing your purchase, you'll receive an email with download instructions. You can also find all your purchases in the "My Account" section under "Order History."
-              </p>
-            </div>
-            <div className="mb-6 text-left">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                What payment methods do you accept?
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                We accept payments through eSewa, various Nepali online banking options, and international credit cards.
-              </p>
-            </div>
-            <div className="mb-6 text-left">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                How do I become a seller on The WH2 Store?
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Contact us at thewh2.official@gmail.com with the subject "Seller Application" and we'll guide you through the process.
+                Delivery usually starts within 1–6 hours after payment confirmation, depending on the package.
               </p>
             </div>
             <div className="text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Do you offer refunds?
+                2. How do I get my purchased products?
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Due to the nature of digital products, we generally do not offer refunds. However, if you experience technical issues, please contact our support team for assistance.
+                After you send payment proof (screenshot or transaction ID), we'll verify and deliver your order soon.
+              </p>
+            </div>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                3. What payment methods do you accept?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                We currently accept:
+              </p>
+              <ul className="text-gray-600 dark:text-gray-400 ml-4 space-y-1">
+                <li>✅ eSewa (Manual Pay)</li>
+                <li>✅ Cash on Delivery</li>
+                <li>✅ Bank Transfer (coming soon)</li>
+              </ul>
+            </div>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                4. Do you offer refunds?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Refunds aren't available for digital services. If your order fails or isn't delivered, we'll fix or replace it.
+              </p>
+            </div>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                5. Can I sell my services on The WH2 Store?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Yes! Email us at thewh2.official@gmail.com with the subject "Technical Support" to apply.
               </p>
             </div>
           </div>
